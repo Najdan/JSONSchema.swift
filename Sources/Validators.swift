@@ -312,13 +312,13 @@ func validatePropertiesLength(_ length: Int, comparitor: @escaping ((Int, Int) -
 func validateRequired(_ required: [String]) -> (_ value: Any)  -> ValidationResult {
   return { value in
     if let value = value as? [String:Any] {
-      if (required.filter { r in !value.keys.contains(r) }.count == 0) {
-        return .valid
-      }
-
-      return .invalid(["Required properties are missing '\(required)'"])
+      var missingRequiredProperties = Set(required).subtracting(Set(value.keys))
+      if missingRequiredProperties.isEmpty {
+			  return .valid
+		  } else {
+			  return .invalid(["Required properties are missing: \(missingRequiredProperties.joined(separator: ", "))"])
+		  }
     }
-
     return .valid
   }
 }
