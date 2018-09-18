@@ -314,10 +314,10 @@ func validateRequired(_ required: [String]) -> (_ value: Any)  -> ValidationResu
     if let value = value as? [String:Any] {
       var missingRequiredProperties = Set(required).subtracting(Set(value.keys))
       if missingRequiredProperties.isEmpty {
-			  return .valid
-		  } else {
-			  return .invalid(["Required properties are missing: \(missingRequiredProperties.joined(separator: ", "))"])
-		  }
+        return .valid
+      } else {
+        return .invalid(["Required properties are missing: \(missingRequiredProperties.joined(separator: ", "))"])
+      }
     }
     return .valid
   }
