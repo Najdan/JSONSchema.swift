@@ -7,53 +7,53 @@
 //
 
 import Foundation
-import XCTest
 import JSONSchema
+import XCTest
 
 class JSONSchemaTests: XCTestCase {
-  var schema:Schema!
+    var schema: Schema!
 
-  override func setUp() {
-    super.setUp()
+    override func setUp() {
+        super.setUp()
 
-    schema = Schema([
-      "title": "Product",
-      "description": "A product from Acme's catalog",
-      "type": "object",
-    ])
-  }
+        schema = Schema([
+            "title": "Product",
+            "description": "A product from Acme's catalog",
+            "type": "object",
+        ])
+    }
 
-  func testTitle() {
-    XCTAssertEqual(schema.title!, "Product")
-  }
+    func testTitle() {
+        XCTAssertEqual(schema.title!, "Product")
+    }
 
-  func testDescription() {
-    XCTAssertEqual(schema.description!, "A product from Acme's catalog")
-  }
+    func testDescription() {
+        XCTAssertEqual(schema.description!, "A product from Acme's catalog")
+    }
 
-  func testType() {
-    XCTAssertEqual(schema.type!, [Type.Object])
-  }
+    func testType() {
+        XCTAssertEqual(schema.type!, [Type.Object])
+    }
 
-  func testSuccessfulValidation() {
-    XCTAssertTrue(schema.validate([String:Any]()).valid)
-  }
+    func testSuccessfulValidation() {
+        XCTAssertTrue(schema.validate([String: Any]()).valid)
+    }
 
-  func testUnsuccessfulValidation() {
-    XCTAssertFalse(schema.validate([String]()).valid)
-  }
+    func testUnsuccessfulValidation() {
+        XCTAssertFalse(schema.validate([String]()).valid)
+    }
 
-  func testReadme() {
-    let schema = Schema([
-      "type": "object",
-      "properties": [
-        "name": ["type": "string"],
-        "price": ["type": "number"],
-      ],
-      "required": ["name"],
-    ])
+    func testReadme() {
+        let schema = Schema([
+            "type": "object",
+            "properties": [
+                "name": ["type": "string"],
+                "price": ["type": "number"],
+            ],
+            "required": ["name"],
+        ])
 
-    XCTAssertTrue(schema.validate(["name": "Eggs", "price": 34.99]).valid)
-    XCTAssertFalse(schema.validate(["price": 34.99]).valid)
-  }
+        XCTAssertTrue(schema.validate(["name": "Eggs", "price": 34.99]).valid)
+        XCTAssertFalse(schema.validate(["price": 34.99]).valid)
+    }
 }
